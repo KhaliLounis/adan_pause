@@ -2,7 +2,6 @@ import geocoder
 import requests
 
 
-#get ip adress function
 def get_ip_address():
     response = requests.get('https://api.ipify.org?format=json')
     ip_data = response.json()
@@ -10,15 +9,11 @@ def get_ip_address():
     return ip_address
 ip_address = get_ip_address()
 
-#get location cordination
-
-def get_cords():
+def get_latitude_longitude(ip_address):
     g = geocoder.ip(ip_address)
-    latlng= g.latlng
-latlng =  get_cords
-
-print(latlng)
-
-
-
-
+    if g.ok:
+        latitude, longitude = g.latlng
+        return latitude, longitude
+    else:
+        return None
+print(get_latitude_longitude(ip_address))
